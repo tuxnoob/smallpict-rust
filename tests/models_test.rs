@@ -7,6 +7,7 @@ fn test_optimize_options_builder() {
         .quality(85)
         .max_width(1920)
         .max_height(1080)
+        .max_dimension(1600)
         .fit(FitMode::Contain)
         .lossless(false)
         .strip_metadata(true)
@@ -19,6 +20,7 @@ fn test_optimize_options_builder() {
     assert_eq!(opts.quality, Some(85));
     assert_eq!(opts.max_width, Some(1920));
     assert_eq!(opts.max_height, Some(1080));
+    assert_eq!(opts.max_dimension, Some(1600));
     assert_eq!(opts.fit, Some(FitMode::Contain));
     assert_eq!(opts.filename, Some("banner.png".to_string()));
     assert_eq!(opts.idempotency_key, Some("idemp_123".to_string()));
@@ -26,6 +28,7 @@ fn test_optimize_options_builder() {
     let json_str = serde_json::to_string(&opts).expect("valid serialization");
     assert!(json_str.contains("\"format\":\"avif\""));
     assert!(json_str.contains("\"quality\":85"));
+    assert!(json_str.contains("\"max_dimension\":1600"));
     assert!(!json_str.contains("idempotency_key")); // skipped from JSON body
 }
 

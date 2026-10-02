@@ -86,6 +86,8 @@ pub struct OptimizeOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub max_height: Option<u32>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_dimension: Option<u32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub fit: Option<FitMode>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lossless: Option<bool>,
@@ -107,6 +109,7 @@ impl Default for OptimizeOptions {
             quality: Some(80),
             max_width: None,
             max_height: None,
+            max_dimension: None,
             fit: Some(FitMode::Cover),
             lossless: Some(false),
             strip_metadata: true,
@@ -148,6 +151,11 @@ impl OptimizeOptionsBuilder {
 
     pub fn max_height(mut self, height: u32) -> Self {
         self.options.max_height = Some(height);
+        self
+    }
+
+    pub fn max_dimension(mut self, dimension: u32) -> Self {
+        self.options.max_dimension = Some(dimension);
         self
     }
 
